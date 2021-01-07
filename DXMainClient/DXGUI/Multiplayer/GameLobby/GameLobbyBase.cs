@@ -315,7 +315,7 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
 
             btnGenerateRandomMap = new XNAClientButton(WindowManager);
             btnGenerateRandomMap.Name = "btnGenerateMap";
-            btnGenerateRandomMap.ClientRectangle = new Rectangle(btnPickRandomMap.Right + 157, Height - 28, 133, 23);
+            btnGenerateRandomMap.ClientRectangle = new Rectangle(btnPickRandomMap.Right + 12, btnPickRandomMap.Y, 133, 23);
             btnGenerateRandomMap.Text = "Gen. Random Map";
             btnGenerateRandomMap.LeftClick += BtnGenerateMap_LeftClick;
             btnGenerateRandomMap.Disable();
