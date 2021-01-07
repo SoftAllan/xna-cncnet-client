@@ -60,7 +60,8 @@ namespace DTAClient.DXGUI
                 Color[] colorArray = new Color[100 * 100];
                 texture.SetData(colorArray);
 
-                UISettings.ActiveSettings.CheckBoxClearTexture = AssetLoader.LoadTextureUncached("checkBoxClear.png");
+                // todo: AGE. This returns a NullReferenceException.
+                //UISettings.ActiveSettings.CheckBoxClearTexture = AssetLoader.LoadTextureUncached("checkBoxClear.png");
             }
             catch (Exception ex)
             {
