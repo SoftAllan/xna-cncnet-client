@@ -114,6 +114,7 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
         protected XNAClientButton btnLeaveGame;
         protected GameLaunchButton btnLaunchGame;
         protected XNAClientButton btnPickRandomMap;
+        protected XNAClientButton btnGenerateRandomMap;
         protected XNALabel lblMapName;
         protected XNALabel lblMapAuthor;
         protected XNALabel lblGameMode;
@@ -312,6 +313,13 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
             btnPickRandomMap.LeftClick += BtnPickRandomMap_LeftClick;
             btnPickRandomMap.Disable();
 
+            btnGenerateRandomMap = new XNAClientButton(WindowManager);
+            btnGenerateRandomMap.Name = "btnGenerateMap";
+            btnGenerateRandomMap.ClientRectangle = new Rectangle(btnPickRandomMap.Right + 157, Height - 28, 133, 23);
+            btnGenerateRandomMap.Text = "Gen. Random Map";
+            btnGenerateRandomMap.LeftClick += BtnGenerateMap_LeftClick;
+            btnGenerateRandomMap.Disable();
+
             AddChild(lblMapName);
             AddChild(lblMapAuthor);
             AddChild(lblGameMode);
@@ -363,6 +371,12 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
             AddChild(btnLaunchGame);
             AddChild(btnLeaveGame);
             AddChild(btnPickRandomMap);
+            AddChild(btnGenerateRandomMap);
+        }
+
+        private void BtnGenerateMap_LeftClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void BtnPickRandomMap_LeftClick(object sender, EventArgs e) => PickRandomMap();
