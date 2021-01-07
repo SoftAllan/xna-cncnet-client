@@ -25,3 +25,5 @@ Icon?
 
 # Dolphin
 .directory
+/Client/ClientCrashLogs
+/Client/client.log
