@@ -53,7 +53,7 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
 
         protected XNAPanel GameOptionsPanel;
 
-        protected RandomMapGenerator RandomMapGenerator;
+        protected RandomMapGenerator RandomMapGeneratorPanel;
 
         protected List<MultiplayerColor> MPColors;
 
@@ -375,17 +375,24 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
             AddChild(btnPickRandomMap);
             AddChild(btnGenerateRandomMap);
 
-            RandomMapGenerator = new RandomMapGenerator(WindowManager);
+            RandomMapGeneratorPanel = new RandomMapGenerator(WindowManager);
+            RandomMapGeneratorPanel.UseMapClicked += RandomMapGeneratorPanel_UseMapClicked;
             var RandomMapDarkeningPanel = new DarkeningPanel(WindowManager);
-            RandomMapDarkeningPanel.AddChild(RandomMapGenerator);
+            RandomMapDarkeningPanel.AddChild(RandomMapGeneratorPanel);
             AddChild(RandomMapDarkeningPanel);
-            RandomMapGenerator.Disable();
+            RandomMapGeneratorPanel.Disable();
 
+        }
+
+        private void RandomMapGeneratorPanel_UseMapClicked()
+        {
+            // todo: Use the new generated map.
+            XNAMessageBox.Show(WindowManager, "Test", "Using map.");
         }
 
         private void BtnGenerateMap_LeftClick(object sender, EventArgs e)
         {
-            RandomMapGenerator.Enable();
+            RandomMapGeneratorPanel.Enable();
         }
 
         private void BtnPickRandomMap_LeftClick(object sender, EventArgs e) => PickRandomMap();
