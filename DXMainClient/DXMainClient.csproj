@@ -505,6 +505,7 @@
     <Compile Include="DXGUI\Multiplayer\CnCNet\PrivateMessagingPanel.cs" />
     <Compile Include="DXGUI\Multiplayer\CnCNet\PrivateMessagingWindow.cs" />
     <Compile Include="DXGUI\Multiplayer\PlayerListBox.cs" />
+    <Compile Include="DXGUI\Multiplayer\RandomMapGenerator.cs" />
     <Compile Include="Online\ChannelUser.cs" />
     <Compile Include="Online\CnCNetGameCheck.cs" />
     <Compile Include="Online\CnCNetUserData.cs" />

@@ -87,7 +87,9 @@ namespace DTAClient.DXGUI.Generic
             var gameCollection = new GameCollection();
             gameCollection.Initialize(GraphicsDevice);
 
-            var lanLobby = new LANLobby(WindowManager, gameCollection, mapLoader.GameModes, mapLoader, discordHandler);
+            var randomMapGenerator = new RandomMapGenerator(WindowManager);
+
+            var lanLobby = new LANLobby(WindowManager, gameCollection, mapLoader.GameModes, mapLoader, discordHandler, randomMapGenerator);
 
             var cncnetUserData = new CnCNetUserData(WindowManager);
             var cncnetManager = new CnCNetManager(WindowManager, gameCollection);
@@ -102,7 +104,7 @@ namespace DTAClient.DXGUI.Generic
                 cncnetManager, gameCollection, cncnetUserData);
             privateMessagingPanel = new PrivateMessagingPanel(WindowManager);
 
-            var cncnetGameLobby = new CnCNetGameLobby(WindowManager,
+            var cncnetGameLobby = new CnCNetGameLobby(WindowManager, randomMapGenerator,
                 "MultiplayerGameLobby", topBar, mapLoader.GameModes, cncnetManager, tunnelHandler, gameCollection, cncnetUserData, mapLoader, discordHandler);
             var cncnetGameLoadingLobby = new CnCNetGameLoadingLobby(WindowManager, 
                 topBar, cncnetManager, tunnelHandler, mapLoader.GameModes, gameCollection, discordHandler);
@@ -111,7 +113,7 @@ namespace DTAClient.DXGUI.Generic
                 gameCollection, cncnetUserData);
             var gipw = new GameInProgressWindow(WindowManager);
 
-            var skirmishLobby = new SkirmishLobby(WindowManager, topBar, mapLoader.GameModes, discordHandler);
+            var skirmishLobby = new SkirmishLobby(WindowManager, randomMapGenerator, topBar, mapLoader.GameModes, discordHandler);
 
             topBar.SetSecondarySwitch(cncnetLobby);
 
@@ -131,6 +133,8 @@ namespace DTAClient.DXGUI.Generic
 
             DarkeningPanel.AddAndInitializeWithControl(WindowManager, optionsWindow);
 
+            DarkeningPanel.AddAndInitializeWithControl(WindowManager, randomMapGenerator);
+
             WindowManager.AddAndInitializeControl(privateMessagingPanel);
             privateMessagingPanel.AddChild(pmWindow);
 
@@ -145,6 +149,7 @@ namespace DTAClient.DXGUI.Generic
             lanLobby.Disable();
             pmWindow.Disable();
             optionsWindow.Disable();
+            randomMapGenerator.Disable();
 
             WindowManager.AddAndInitializeControl(topBar);
             topBar.AddPrimarySwitchable(mainMenu);

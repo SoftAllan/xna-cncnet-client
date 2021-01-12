@@ -25,9 +25,9 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
         private const int MAX_DICE = 10;
         private const int MAX_DIE_SIDES = 100;
 
-        public MultiplayerGameLobby(WindowManager windowManager, string iniName, 
+        public MultiplayerGameLobby(WindowManager windowManager, RandomMapGenerator randomMapGenerator, string iniName, 
             TopBar topBar, List<GameMode> GameModes, MapLoader mapLoader, DiscordHandler discordHandler)
-            : base(windowManager, iniName, GameModes, true, discordHandler)
+            : base(windowManager, randomMapGenerator, iniName, GameModes, true, discordHandler)
         {
             TopBar = topBar;
             MapLoader = mapLoader;

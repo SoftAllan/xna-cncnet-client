@@ -39,9 +39,9 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
         private const string FILE_HASH_COMMAND = "FHASH";
         private const string DICE_ROLL_COMMAND = "DR";
 
-        public LANGameLobby(WindowManager windowManager, string iniName, 
+        public LANGameLobby(WindowManager windowManager, RandomMapGenerator randomMapGenerator, string iniName, 
             TopBar topBar, List<GameMode> GameModes, LANColor[] chatColors, MapLoader mapLoader, DiscordHandler discordHandler) : 
-            base(windowManager, iniName, topBar, GameModes, mapLoader, discordHandler)
+            base(windowManager, randomMapGenerator, iniName, topBar, GameModes, mapLoader, discordHandler)
         {
             this.chatColors = chatColors;
             encoding = Encoding.UTF8;
