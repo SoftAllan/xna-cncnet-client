@@ -38,11 +38,10 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
         /// </summary>
         /// <param name="game">The game.</param>
         /// <param name="iniName">The name of the lobby in GameOptions.ini.</param>
-        public GameLobbyBase(WindowManager windowManager, RandomMapGenerator randomMapGenerator, string iniName,
+        public GameLobbyBase(WindowManager windowManager, string iniName,
             List<GameMode> GameModes, bool isMultiplayer, DiscordHandler discordHandler) : base(windowManager)
         {
             _iniSectionName = iniName;
-            this.RandomMapGenerator = randomMapGenerator;
             this.GameModes = GameModes;
             this.isMultiplayer = isMultiplayer;
             this.discordHandler = discordHandler;
@@ -375,6 +374,13 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
             AddChild(btnLeaveGame);
             AddChild(btnPickRandomMap);
             AddChild(btnGenerateRandomMap);
+
+            RandomMapGenerator = new RandomMapGenerator(WindowManager);
+            var RandomMapDarkeningPanel = new DarkeningPanel(WindowManager);
+            RandomMapDarkeningPanel.AddChild(RandomMapGenerator);
+            AddChild(RandomMapDarkeningPanel);
+            RandomMapGenerator.Disable();
+
         }
 
         private void BtnGenerateMap_LeftClick(object sender, EventArgs e)

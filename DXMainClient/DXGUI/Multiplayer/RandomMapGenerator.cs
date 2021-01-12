@@ -22,7 +22,7 @@ namespace DTAClient.DXGUI.Multiplayer
 
         protected XNAPanel MapOptionsPanel;
 
-        protected XNAClientButton btnMainMenu;
+        protected XNAClientButton btnCancel;
 
 
 
@@ -130,30 +130,35 @@ namespace DTAClient.DXGUI.Multiplayer
 
         public override void Initialize()
         {
-            base.Initialize();
+            
+            Name = "RandomMapGenerator";
+            ClientRectangle = new Rectangle(0, 0, 600, 600);
+            BackgroundTexture = AssetLoader.LoadTexture("gamelobbybg.png");
 
             MapOptionsPanel = new XNAPanel(WindowManager);
             MapOptionsPanel.Name = "MapOptionsPanel";
-            MapOptionsPanel.ClientRectangle = new Rectangle(10, 10, 300, 200);
+            MapOptionsPanel.ClientRectangle = new Rectangle(10, 10, 550, 500);
             MapOptionsPanel.BackgroundTexture = AssetLoader.CreateTexture(new Color(0, 0, 0, 192), 1, 1);
             MapOptionsPanel.PanelBackgroundDrawMode = PanelBackgroundImageDrawMode.STRETCHED;
 
-            btnMainMenu.Text = "Back"
+            btnCancel = new XNAClientButton(WindowManager);
+            btnCancel.Name = "btnCancel";
+            btnCancel.ClientRectangle = new Rectangle(Width - 104,
+                Height - 35, 92, 23);
+            btnCancel.Text = "Cancel";
+            btnCancel.LeftClick += BtnCancel_LeftClick;
 
             AddChild(MapOptionsPanel);
+            AddChild(btnCancel);
 
-            PostInitialize();
+            base.Initialize();
+
+            WindowManager.CenterControlOnScreen(this);
         }
 
-        /// <summary>
-        /// Performs initialization that is necessary after derived 
-        /// classes have performed their own initialization.
-        /// </summary>
-        protected void PostInitialize()
+        private void BtnCancel_LeftClick(object sender, EventArgs e)
         {
-            // InitializeWindow();
-            // CenterOnParent();
-            // WindowManager.CenterControlOnScreen(this);
+            Disable();
         }
 
     }
