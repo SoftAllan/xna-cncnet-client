@@ -25,9 +25,10 @@ namespace DTAClient.DXGUI.Multiplayer
         protected XNAPanel MapPreviewPanel;
 
         protected XNAClientButton btnUseMap;
+        protected XNAClientButton btnGenerateMap;
         protected XNAClientButton btnCancel;
-
-        private const int ButtonWidth = 92;
+        
+        private const int ButtonWidth = 110;
 
         public override void Initialize()
         {
@@ -48,26 +49,38 @@ namespace DTAClient.DXGUI.Multiplayer
             MapPreviewPanel.BackgroundTexture = AssetLoader.CreateTexture(new Color(0, 0, 0, 128), 1, 1);
             MapPreviewPanel.PanelBackgroundDrawMode = PanelBackgroundImageDrawMode.STRETCHED;
 
+            btnGenerateMap = new XNAClientButton(WindowManager);
+            btnGenerateMap.Name = "btnGenerateMap";
+            btnGenerateMap.ClientRectangle = new Rectangle(MapOptionsPanel.X, Height - 35, ButtonWidth, 23);
+            btnGenerateMap.Text = "Generate Map";
+            btnGenerateMap.LeftClick += BtnGenerateMap_LeftClick;
+
             btnUseMap = new XNAClientButton(WindowManager);
             btnUseMap.Name = "btnUseMap";
-            btnUseMap.ClientRectangle = new Rectangle(104, Height - 35, ButtonWidth, 23);
+            btnUseMap.ClientRectangle = new Rectangle(btnGenerateMap.Right + 12, Height - 35, ButtonWidth, 23);
             btnUseMap.Text = "Use Map";
             btnUseMap.LeftClick += BtnUseMap_LeftClick;
 
             btnCancel = new XNAClientButton(WindowManager);
             btnCancel.Name = "btnCancel";
-            btnCancel.ClientRectangle = new Rectangle(Width - (104 + ButtonWidth), Height - 35, ButtonWidth, 23);
+            btnCancel.ClientRectangle = new Rectangle(MapPreviewPanel.Right - ButtonWidth, Height - 35, ButtonWidth, 23);
             btnCancel.Text = "Cancel";
             btnCancel.LeftClick += BtnCancel_LeftClick;
 
             AddChild(MapOptionsPanel);
             AddChild(MapPreviewPanel);
             AddChild(btnUseMap);
+            AddChild(btnGenerateMap);
             AddChild(btnCancel);
 
             base.Initialize();
 
             WindowManager.CenterControlOnScreen(this);
+        }
+
+        private void BtnGenerateMap_LeftClick(object sender, EventArgs e)
+        {
+            btnUseMap.Enable();
         }
 
         private void BtnUseMap_LeftClick(object sender, EventArgs e)
@@ -85,6 +98,8 @@ namespace DTAClient.DXGUI.Multiplayer
         {
             DarkeningPanel.AddAndInitializeWithControl(WindowManager, this);
             Enable();
+            btnUseMap.Visible = true;
+            btnUseMap.Enabled = false;
         }
 
         private void Hide()
