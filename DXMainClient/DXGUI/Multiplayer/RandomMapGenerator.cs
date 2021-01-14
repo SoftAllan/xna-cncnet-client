@@ -12,8 +12,6 @@ using System.Threading.Tasks;
 
 namespace DTAClient.DXGUI.Multiplayer
 {
-    // todo: Disable Top menu buttons not including Options.
-    // todo: Restore Top menu buttons enable/disabled state when the dialog is closed.
     public class RandomMapGenerator : XNAWindow
     {
         public RandomMapGenerator(WindowManager windowManager) : base(windowManager)
@@ -74,14 +72,37 @@ namespace DTAClient.DXGUI.Multiplayer
 
         private void BtnUseMap_LeftClick(object sender, EventArgs e)
         {
-            Disable();
+            Hide();
             UseMapClicked?.Invoke();
         }
 
         private void BtnCancel_LeftClick(object sender, EventArgs e)
         {
+            Hide();
+        }
+
+        public void Show()
+        {
+            DarkeningPanel.AddAndInitializeWithControl(WindowManager, this);
+            Enable();
+        }
+
+        private void Hide()
+        {
+            var parent = (DarkeningPanel)this.Parent;
+            parent.RemoveChild(this);
+            parent.Hide();
+            parent.Hidden += Parent_Hidden;
             Disable();
         }
+
+        private static void Parent_Hidden(object sender, EventArgs e)
+        {
+            var darkeningPanel = (DarkeningPanel)sender;
+            darkeningPanel.WindowManager.RemoveControl(darkeningPanel);
+            darkeningPanel.Hidden -= Parent_Hidden;
+        }
+        
 
     }
 }

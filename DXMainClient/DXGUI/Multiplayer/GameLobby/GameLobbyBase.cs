@@ -322,6 +322,9 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
             btnGenerateRandomMap.LeftClick += BtnGenerateMap_LeftClick;
             btnGenerateRandomMap.Disable();
 
+            RandomMapGeneratorPanel = new RandomMapGenerator(WindowManager);
+            RandomMapGeneratorPanel.UseMapClicked += RandomMapGeneratorPanel_UseMapClicked;
+
             AddChild(lblMapName);
             AddChild(lblMapAuthor);
             AddChild(lblGameMode);
@@ -375,24 +378,17 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
             AddChild(btnPickRandomMap);
             AddChild(btnGenerateRandomMap);
 
-            RandomMapGeneratorPanel = new RandomMapGenerator(WindowManager);
-            RandomMapGeneratorPanel.UseMapClicked += RandomMapGeneratorPanel_UseMapClicked;
-            var RandomMapDarkeningPanel = new DarkeningPanel(WindowManager);
-            RandomMapDarkeningPanel.AddChild(RandomMapGeneratorPanel);
-            AddChild(RandomMapDarkeningPanel);
-            RandomMapGeneratorPanel.Disable();
-
         }
 
         private void RandomMapGeneratorPanel_UseMapClicked()
         {
-            // todo: Use the new generated map.
+            // todo: AGE Use the new generated map.
             XNAMessageBox.Show(WindowManager, "Test", "Using map.");
         }
 
         private void BtnGenerateMap_LeftClick(object sender, EventArgs e)
         {
-            RandomMapGeneratorPanel.Enable();
+            RandomMapGeneratorPanel.Show();
         }
 
         private void BtnPickRandomMap_LeftClick(object sender, EventArgs e) => PickRandomMap();
