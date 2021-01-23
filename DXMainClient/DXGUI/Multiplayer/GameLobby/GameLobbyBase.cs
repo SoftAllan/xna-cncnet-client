@@ -322,7 +322,7 @@ namespace DTAClient.DXGUI.Multiplayer.GameLobby
             btnGenerateRandomMap.LeftClick += BtnGenerateMap_LeftClick;
             btnGenerateRandomMap.Disable();
 
-            RandomMapGeneratorPanel = new RandomMapGenerator(WindowManager);
+            RandomMapGeneratorPanel = new RandomMapGenerator(WindowManager, GameOptionsIni);
             RandomMapGeneratorPanel.UseMapClicked += RandomMapGeneratorPanel_UseMapClicked;
 
             AddChild(lblMapName);

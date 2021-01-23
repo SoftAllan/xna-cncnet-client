@@ -1,32 +1,32 @@
 ﻿using ClientGUI;
+using DTAClient.Domain.Multiplayer;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Rampastring.Tools;
 using Rampastring.XNAUI;
 using Rampastring.XNAUI.XNAControls;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DTAClient.DXGUI.Multiplayer
 {
     public class RandomMapGenerator : XNAWindow
     {
-        public RandomMapGenerator(WindowManager windowManager) : base(windowManager)
+        public RandomMapGenerator(WindowManager windowManager, IniFile gameOptionsIni) : base(windowManager)
         {
+            GameOptionsIni = gameOptionsIni;
         }
 
         public delegate void UseMapHandler();
         public event UseMapHandler UseMapClicked;
 
         protected XNAPanel MapOptionsPanel;
-        protected XNAPanel MapPreviewPanel;
+        protected GameLobby.MapPreviewBox MapPreviewPanel;
 
         protected XNAClientButton btnUseMap;
         protected XNAClientButton btnGenerateMap;
         protected XNAClientButton btnCancel;
+
+        private IniFile GameOptionsIni;
         
         private const int ButtonWidth = 110;
 
@@ -43,12 +43,13 @@ namespace DTAClient.DXGUI.Multiplayer
             MapOptionsPanel.BackgroundTexture = AssetLoader.CreateTexture(new Color(0, 0, 0, 128), 1, 1);
             MapOptionsPanel.PanelBackgroundDrawMode = PanelBackgroundImageDrawMode.STRETCHED;
 
-            MapPreviewPanel = new XNAPanel(WindowManager);
+            // Todo: Right click on location gives an exception.
+            MapPreviewPanel = new GameLobby.MapPreviewBox(WindowManager, new List<PlayerInfo>(), new List<PlayerInfo>(), new List<MultiplayerColor>(), new string[] { }, GameOptionsIni);
             MapPreviewPanel.Name = "MapPreviewPanel";
             MapPreviewPanel.ClientRectangle = new Rectangle(MapOptionsPanel.Right + 20, MapOptionsPanel.Y, Width - (MapOptionsPanel.Right + 40), MapOptionsPanel.Height);
             MapPreviewPanel.BackgroundTexture = AssetLoader.CreateTexture(new Color(0, 0, 0, 128), 1, 1);
             MapPreviewPanel.PanelBackgroundDrawMode = PanelBackgroundImageDrawMode.STRETCHED;
-
+            
             btnGenerateMap = new XNAClientButton(WindowManager);
             btnGenerateMap.Name = "btnGenerateMap";
             btnGenerateMap.ClientRectangle = new Rectangle(MapOptionsPanel.X, Height - 35, ButtonWidth, 23);
@@ -80,6 +81,7 @@ namespace DTAClient.DXGUI.Multiplayer
 
         private void BtnGenerateMap_LeftClick(object sender, EventArgs e)
         {
+            GenerateMap();
             btnUseMap.Enable();
         }
 
@@ -118,6 +120,13 @@ namespace DTAClient.DXGUI.Multiplayer
             darkeningPanel.Hidden -= Parent_Hidden;
         }
         
+        private void GenerateMap()
+        {
+            var mapName = "testramap";
+            var mapLoader = new MapLoader();
+            var testMap = mapLoader.LoadCustomMap($"Maps/Custom/{mapName}", out string resultMessage);
+            MapPreviewPanel.Map = testMap;
+        }
 
     }
 }
